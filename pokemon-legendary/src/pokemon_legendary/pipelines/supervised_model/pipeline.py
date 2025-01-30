@@ -4,7 +4,7 @@ generated using Kedro 0.19.11
 """
 
 from kedro.pipeline import Pipeline, pipeline, node
-from .nodes import data_preprocessing, split_data, train_model, evaluate_model
+from .nodes import data_preprocessing, split_data, train_model, evaluate_model, create_conf_matrix
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -55,4 +55,14 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs= ["boosting.classification_report", "metrics"],
                 name="evaluate_model",
             ),
+        node(
+            func=create_conf_matrix,
+            inputs=[
+                    "boosting.model",
+                    "boosting.X_test",
+                    "boosting.y_test"
+                ],
+            outputs="confusion_matrix",
+            name="create_conf_matrix"
+        ),
     ])

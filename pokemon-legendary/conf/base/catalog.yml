@@ -31,3 +31,8 @@ boosting.classification_report:
 metrics:
   type: tracking.MetricsDataset
   filepath: data/09_tracking/metrics.json
+
+confusion_matrix:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/09_tracking/confusion_matrix.png
+  versioned: true

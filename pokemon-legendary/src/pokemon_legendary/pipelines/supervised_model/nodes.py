@@ -11,7 +11,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, precision_score, recall_score, f1_score
+from sklearn.metrics import classification_report, precision_score, recall_score, f1_score, confusion_matrix
+
+import matplotlib.pyplot as plt
+import seaborn as sn
 
 logger = logging.getLogger(__name__)
 
@@ -74,3 +77,18 @@ def evaluate_model(boosting: GradientBoostingClassifier, X_test: pd.DataFrame, y
     recall = recall_score(y_test, y_pred)
     
     return classification_rep, {"f1_score": f1_, "precision": precision, "recall": recall}
+
+"""----------------------------------------"""
+
+def create_conf_matrix(boosting: GradientBoostingClassifier, X_test: pd.DataFrame, y_test: pd.Series):
+     
+     y_pred = boosting.predict(X_test)
+     data = {"y_actual": y_test.Legendary.values, "y_predicted": y_pred}
+     df = pd.DataFrame(data, columns=["y_actual", "y_predicted"])
+     conf_mtrx = pd.crosstab(
+        df["y_actual"], df["y_predicted"], rownames=["Actual"], colnames=["Predicted"]
+    )
+     sn.heatmap(conf_mtrx, annot=True)
+     return plt
+    
+
