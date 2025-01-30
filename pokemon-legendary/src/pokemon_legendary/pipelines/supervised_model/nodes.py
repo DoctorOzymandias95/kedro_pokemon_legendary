@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import classification_report, precision_score, recall_score, f1_score
 
 import matplotlib.pyplot as plt
 import seaborn as sn
@@ -75,7 +75,7 @@ def evaluate_model(boosting: GradientBoostingClassifier, X_test: pd.DataFrame, y
     f1_ = f1_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred)
     recall = recall_score(y_test, y_pred)
-    
+    logger.info(">> Model evaluated")
     return classification_rep, {"f1_score": f1_, "precision": precision, "recall": recall}
 
 """----------------------------------------"""
