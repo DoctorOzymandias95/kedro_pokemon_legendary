@@ -2,3 +2,33 @@
 #
 # Documentation for this file format can be found in "The Data Catalog"
 # Link: https://docs.kedro.org/en/stable/data/data_catalog.html
+
+pokemon_raw:
+  filepath: ${globals:basepath.path}/01_raw/Pokemon.csv
+  type: pandas.CSVDataset
+
+boosting.X_dataset:
+  filepath: ${globals:basepath.path}/02_intermediate/X_dataset.csv
+  type: pandas.CSVDataset
+
+boosting.y_dataset:
+  filepath: ${globals:basepath.path}/02_intermediate/y_dataset.csv
+  type: pandas.CSVDataset
+
+boosting.X_test:
+  filepath: ${globals:basepath.path}/07_models_output/X_test.csv
+  type: pandas.CSVDataset
+
+boosting.y_test:
+  filepath: ${globals:basepath.path}/07_models_output/y_test.csv
+  type: pandas.CSVDataset
+
+boosting.model:
+  filepath: ${globals:basepath.path}/06_models/boosting_trained_model.pkl
+  type: pickle.PickleDataset
+  versioned: True
+
+boosting.classification_report:
+  filepath: ${globals:basepath.path}/08_reporting/model_classification_report.pkl
+  type: pickle.PickleDataset
+  versioned: True
