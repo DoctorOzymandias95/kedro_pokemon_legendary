@@ -1,10 +1,11 @@
 """Project settings. There is no need to edit this file unless you want to change values
 from the Kedro defaults. For further information, including these default values, see
-https://kedro.readthedocs.io/en/stable/kedro_project_setup/settings.html."""
+https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 
 # Instantiated project hooks.
 # For example, after creating a hooks.py and defining a ProjectHooks class there, do
-# from pokemon_legendary.hooks import ProjectHooks
+# from pandas_viz.hooks import ProjectHooks
+
 # Hooks are executed in a Last-In-First-Out (LIFO) order.
 # HOOKS = (ProjectHooks(),)
 
@@ -23,16 +24,18 @@ https://kedro.readthedocs.io/en/stable/kedro_project_setup/settings.html."""
 # CONF_SOURCE = "conf"
 
 # Class that manages how configuration is loaded.
-from kedro.config import OmegaConfigLoader  # noqa: import-outside-toplevel
+from kedro.config import OmegaConfigLoader  # noqa: E402
 
 CONFIG_LOADER_CLASS = OmegaConfigLoader
 # Keyword arguments to pass to the `CONFIG_LOADER_CLASS` constructor.
-# CONFIG_LOADER_ARGS = {
+CONFIG_LOADER_ARGS = {
+      "base_env": "base",
+      "default_run_env": "local",
 #       "config_patterns": {
 #           "spark" : ["spark*/"],
 #           "parameters": ["parameters*", "parameters*/**", "**/parameters*"],
 #       }
-# }
+}
 
 # Class that manages Kedro's library components.
 # from kedro.framework.context import KedroContext
@@ -41,3 +44,11 @@ CONFIG_LOADER_CLASS = OmegaConfigLoader
 # Class that manages the Data Catalog.
 # from kedro.io import DataCatalog
 # DATA_CATALOG_CLASS = DataCatalog
+
+# Kedro Viz
+
+from kedro_viz.integrations.kedro.sqlite_store import SQLiteStore
+from pathlib import Path
+
+SESSION_STORE_CLASS = SQLiteStore
+SESSION_STORE_ARGS = {"path": str(Path(__file__).parents[2] / "data")}

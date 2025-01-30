@@ -1,17 +1,33 @@
+[build-system]
+requires = [ "setuptools",]
+build-backend = "setuptools.build_meta"
+
+[project]
+requires-python = ">=3.9"
+name = "pokemon_legendary"
+readme = "README.md"
+dynamic = [ "version",]
+dependencies = [ "ipython>=8.10", "jupyterlab>=3.0", "notebook", "kedro[jupyter]~=0.19.11", "kedro-datasets[pandas-csvdataset, pandas-exceldataset, pandas-parquetdataset, plotly-plotlydataset, plotly-jsondataset, matplotlib-matplotlibwriter]>=3.0", "kedro-viz>=6.7.0", "scikit-learn~=1.5.1", "seaborn~=0.12.1",]
+
+[project.scripts]
+pokemon-legendary = "pokemon_legendary.__main__:main"
+
 [tool.kedro]
 package_name = "pokemon_legendary"
-project_name = "pokemon_legendary"
-kedro_init_version = "0.18.14"
+project_name = "pokemon-legendary"
+kedro_init_version = "0.19.11"
+tools = "['Kedro Viz']"
+example_pipeline = "False"
+source_dir = "src"
 
-[tool.isort]
-profile = "black"
+[project.entry-points."kedro.hooks"]
 
-[tool.pytest.ini_options]
-addopts = """
---cov-report term-missing \
---cov src/pokemon_legendary -ra"""
+[tool.setuptools.dynamic.version]
+attr = "pokemon_legendary.__version__"
 
-[tool.coverage.report]
-fail_under = 0
-show_missing = true
-exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
+[tool.setuptools.packages.find]
+where = [ "src",]
+namespaces = false
+
+[tool.kedro_telemetry]
+project_id = "5d1820aa5c724a098535f11090e43130"

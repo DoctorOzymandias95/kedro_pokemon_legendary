@@ -1,9 +1,9 @@
 """
 This is a boilerplate pipeline 'supervised_model'
-generated using Kedro 0.18.14
+generated using Kedro 0.19.11
 """
 
-from typing import Tuple, Any
+from typing import Tuple, Any, Dict
 import logging 
 import pandas as pd
 import numpy as np
@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report, precision_score, recall_score, f1_score
 
 logger = logging.getLogger(__name__)
 
@@ -65,9 +65,12 @@ def train_model(X_train: pd.DataFrame, y_train: pd.Series, parameters: dict[str,
 
 """----------------------------------------"""
 
-def evaluate_model(boosting: GradientBoostingClassifier, X_test: pd.DataFrame, y_test: pd.Series):
+def evaluate_model(boosting: GradientBoostingClassifier, X_test: pd.DataFrame, y_test: pd.Series)-> Tuple[pd.DataFrame, Dict[str, float]]:
 
     y_pred = boosting.predict(X_test)
     classification_rep = pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)).transpose()
+    f1_ = f1_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
     
-    return classification_rep
+    return classification_rep, {"f1_score": f1_, "precision": precision, "recall": recall}

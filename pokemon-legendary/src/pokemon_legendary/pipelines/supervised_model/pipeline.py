@@ -1,6 +1,6 @@
 """
 This is a boilerplate pipeline 'supervised_model'
-generated using Kedro 0.18.14
+generated using Kedro 0.19.11
 """
 
 from kedro.pipeline import Pipeline, pipeline, node
@@ -52,7 +52,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "boosting.X_test",
                     "boosting.y_test"
                 ],
-                outputs= "boosting.classification_report",
+                outputs= ["boosting.classification_report", "metrics"],
                 name="evaluate_model",
             ),
     ])

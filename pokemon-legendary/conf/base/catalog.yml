@@ -1,8 +1,3 @@
-# Here you can define all your data sets by using simple YAML syntax.
-#
-# Documentation for this file format can be found in "The Data Catalog"
-# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
-
 pokemon_raw:
   filepath: ${globals:basepath.path}/01_raw/Pokemon.csv
   type: pandas.CSVDataset
@@ -32,3 +27,7 @@ boosting.classification_report:
   filepath: ${globals:basepath.path}/08_reporting/model_classification_report.pkl
   type: pickle.PickleDataset
   versioned: True
+
+metrics:
+  type: tracking.MetricsDataset
+  filepath: data/09_tracking/metrics.json
