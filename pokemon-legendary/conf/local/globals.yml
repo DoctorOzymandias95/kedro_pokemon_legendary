@@ -1,0 +1,3 @@
+basepath:
+  path: <path_to_kedro_proj>/<your_kedro_proj>/data
+optional_versioned: True
