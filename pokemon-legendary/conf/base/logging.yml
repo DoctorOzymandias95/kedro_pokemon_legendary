@@ -1,0 +1,2 @@
+root:
+  handlers: [console]
